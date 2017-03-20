@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>list-books</title>
+</head>
+<body>
+	<header class="navbar navbar-inverse navbar-fixed-top header"></header>
+	<div class="content">
+		<div class="row">
+			<div class="col-sm-5">
+				<div class="content-titleForm">
+					<h2 class="content-titleForm__title"><span class="title" data-type="1">Добавление книги!</span></h2>
+				</div>
+				<form class="form-horizontal content-form" id="form">
+					<div class="form-group row">
+						<label for="author" class="col-sm-3 control-label">Автор</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="author" placeholder="Автор" required="required">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="year" class="col-sm-3 control-label">Год издания</label>
+						<div class="col-sm-9">
+							<input type="date" class="form-control" id="year" placeholder="Год издания" required="required">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="nameBook" class="col-sm-3 control-label">Название книги</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="nameBook" placeholder="Название книги" required="required">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="pages" class="col-sm-3 control-label">Кол-во страниц</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="pages" placeholder="Количество страниц"  required="required">
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-offset-3 col-sm-9">
+							<button type="submit" class="btn btn-success" id="addBookForm">Добавить</button>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-offset-3 col-sm-9">
+							<button type="button" class="btn btn-danger closeUpdate" id="closeBookForm">Отмена</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-7">
+				<div class="list-items" id="list-books"></div>
+			</div>
+		</div>
+	</div>
+	<footer class="navbar navbar-inverse navbar-fixed-bottom footer"></footer>
+
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/main.js"></script>
+</body>
+</html>
