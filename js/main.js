@@ -7,10 +7,12 @@
 		var listBooks = document.getElementById('list-books');
 		var title = document.getElementsByClassName('title')[0];
 		var close = document.getElementById('closeBookForm');
-		initializeBookLocalStorage ();
-		selectBooksFromLocalStorage ();
-
-		form.onclick = function(event) {
+		var clear = document.getElementById('clear');
+		
+		initializeBookLocalStorage();
+		selectBooksFromLocalStorage();
+		
+		form.addEventListener('click', function(event) {
 			event = event || window.event;
 			var target = event.target || event.srcElement;
 			var author = document.getElementById('author').value;
@@ -30,13 +32,23 @@
 				addBookForm.innerHTML = 'Добавить';
 				close.style.display = 'none';
 			}
+			
+			var regExpPages = /[1-9]{1,}/.test(pages);
+			var regExpYear = /[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(year);
 
 			if (target.className == "btn btn-success") {
-
+				
 				if (!author || !year || !nameBook || !pages) {
 					alert("Вы не ввели данные!");
 					return false;
 				}
+				
+				if(!regExpYear || !regExpPages){
+					document.getElementById('year').value = '';
+					document.getElementById('pages').value = '';
+					alert('Введены некорректные данные!');
+					return false;
+				} 
 
 				if (title.getAttribute('data-type') == 1) {
 					addToLocalStorage({
@@ -64,12 +76,10 @@
 				clearForm();
 			}
 			
-			
-
-		};
+		});
 
 
-		listBooks.onclick = function(event) {
+		listBooks.addEventListener('click', function(event) {
 			event = event || window.event;
 			var target = event.target || event.srcElement;
 
@@ -98,9 +108,22 @@
 				document.getElementById('nameBook').value = target.querySelector('.nameBookList').innerHTML;
 				document.getElementById('pages').value = target.querySelector('.pagesList').innerHTML;
 			}
-
 			
-		};
+		});
+		
+		clear.addEventListener('click', function(event){
+			event = event || window.event;
+			var target = event.target || event.srcElement;
+
+			if(target.className == 'header-button__clear') {
+				if(confirm('Точно очистить?')){
+					console.log('Хранилище очищено!');
+					clearLocalStorage('books');
+				}
+			}
+		});
+		
+		
 	};
 
 ///////////////////////Инициализация/////////////////////////////////
@@ -122,8 +145,6 @@
 					nameBook: book.nameBook,
 					pages: book.pages
 				});
-				
-
 			});
 		}
 
@@ -242,4 +263,12 @@
 			return JSON.parse(localStorage.getItem(key));
 		}
 	
+//////////////////////////////////////////////////////////////////
+	
+		function clearLocalStorage(key) {
+			localStorage.clear();
+			initializeBookLocalStorage();
+			document.getElementById('list-books').innerHTML = '';
+			selectBooksFromLocalStorage();
+		}
 })();
